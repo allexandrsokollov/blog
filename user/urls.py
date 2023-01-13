@@ -3,5 +3,5 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.view_all_users)
+    path('<int:pk>', views.UserDetailView.as_view())
 ]

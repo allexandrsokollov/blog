@@ -1,7 +1,8 @@
-from django.shortcuts import render
 from .models import User
+from django.views.generic import DetailView
 
 
-def view_all_users(request):
-    users = User.objects.all()
-    return render(request, 'user/allUsersTemp.html', {'users': users})
+class UserDetailView(DetailView):
+    model = User
+    template_name = 'user/user.html'
+    context_object_name = 'user'
