@@ -4,6 +4,10 @@
 
 {% block body %}
     <div class="centerContent">
-        <h1>articles</h1>
+        {% for article in articles %}
+            <h1>{{ article.title }}</h1>
+            <h3>{{ article.text }}</h3>
+            <p>Author: {{ article.author }} Date: {{ article.date_time }}</p>
+        {%  endfor %}
     </div>
 {% endblock %}
