@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import DetailView, UpdateView
+from django.views.generic import DetailView, UpdateView, DeleteView
 
 from article.models import *
 
@@ -28,8 +28,14 @@ def add_new_article(request):
     return render(request, 'newArticle.html', {'form': form})
 
 
-class DetailArticle(UpdateView):
+class UpdateArticle(UpdateView):
     model = Article
     template_name = 'edit_article.html'
     context_object_name = 'article'
     fields = ['title', 'text']
+
+
+class DeleteArticle(DeleteView):
+    model = Article
+    template_name = 'delete_article.html'
+    success_url = '/'

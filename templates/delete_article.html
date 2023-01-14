@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1>delete article</h1>
+    <form method="post" action="{% url 'delete_article' article.id %}">
+        {% csrf_token %}
+        {% for field in form%}
+            {{ field.errors }}<br>
+            {{ field.label_tag }} {{ field }}<br>
+        {% endfor %}
+        <button type="submit">delete article</button>
+    </form>
+
+    </div>
+
+{% endblock %}
