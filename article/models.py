@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models import CASCADE
+from django import forms
 
 from user.models import User
 
@@ -7,7 +8,7 @@ from user.models import User
 class Article(models.Model):
     title = models.CharField('title', max_length=256)
     text = models.TextField('text')
-    date_time = models.DateTimeField('datetime')
+    date_time = models.DateTimeField('datetime', auto_now_add=True)
     author = models.ForeignKey(User, on_delete=CASCADE)
 
     def __str__(self):
@@ -16,3 +17,9 @@ class Article(models.Model):
     class Meta:
         verbose_name = 'article'
         verbose_name_plural = 'articles'
+
+
+class ArticleCreationForm(forms.ModelForm):
+    class Meta:
+        model = Article
+        fields = ['title', 'text']
