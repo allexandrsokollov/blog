@@ -11,6 +11,9 @@ class Article(models.Model):
     date_time = models.DateTimeField('datetime', auto_now_add=True)
     author = models.ForeignKey(User, on_delete=CASCADE)
 
+    def get_absolute_url(self):
+        return '/'
+
     def __str__(self):
         return self.title
 
@@ -19,7 +22,7 @@ class Article(models.Model):
         verbose_name_plural = 'articles'
 
 
-class ArticleCreationForm(forms.ModelForm):
+class ArticleForm(forms.ModelForm):
     class Meta:
         model = Article
         fields = ['title', 'text']

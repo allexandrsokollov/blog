@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.generic import DetailView, UpdateView
 
 from article.models import *
 
@@ -9,12 +10,12 @@ def show_articles(request):
 
 
 def new_article(request):
-    return render(request, 'newArticle.html', {'form': ArticleCreationForm})
+    return render(request, 'newArticle.html', {'form': ArticleForm})
 
 
 def add_new_article(request):
     if request.POST:
-        form = ArticleCreationForm(request.POST)
+        form = ArticleForm(request.POST)
         if form.is_valid():
             article = Article()
             article.title = form.cleaned_data['title']
@@ -23,5 +24,12 @@ def add_new_article(request):
             article.save()
             return show_articles(request)
     else:
-        form = ArticleCreationForm
+        form = ArticleForm
     return render(request, 'newArticle.html', {'form': form})
+
+
+class DetailArticle(UpdateView):
+    model = Article
+    template_name = 'edit_article.html'
+    context_object_name = 'article'
+    fields = ['title', 'text']
