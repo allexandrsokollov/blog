@@ -1,3 +1,5 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def show_articles(request):
+    return render(request, 'index.html')
