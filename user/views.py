@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from django.views import View
-from user.froms import UserCreationForm
+from user.froms import NewUserForm
 
 
 class Register(View):
@@ -9,12 +9,12 @@ class Register(View):
 
     def get(self, request):
         context = {
-            'form': UserCreationForm()
+            'form': NewUserForm()
         }
         return render(request, self.template_name, context)
 
     def post(self, request):
-        form = UserCreationForm(request.POST)
+        form = NewUserForm(request.POST)
 
         if form.is_valid():
             form.save()

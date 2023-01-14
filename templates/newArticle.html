@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+    <form method="post" action="{% url 'addNewArticle' %}">
+        {% csrf_token %}
+        {% for field in form%}
+            {{ field.errors }}<br>
+            {{ field.label_tag }} {{ field }}<br>
+        {% endfor %}
+        <button type="submit">Submit</button>
+    </form>
+
+    </div>
+
+{% endblock %}
