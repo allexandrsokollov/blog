@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="container">
+
+        <h1>{{ article.title }}</h1>
+        <h3>{{ article.text }}</h3>
+        <p>{{ article.author }} {{ article.date_time }}</p>
+        {% if article.author == user %}
+            <a href="{% url 'edit_article' article.id %}">Edit</a>
+            <a href="{% url 'delete_article' article.id %}">Delete </a>
+        {% endif %}
+    </div>
+{% endblock %}

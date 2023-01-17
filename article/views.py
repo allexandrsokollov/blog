@@ -39,3 +39,9 @@ class DeleteArticle(DeleteView):
     model = Article
     template_name = 'delete_article.html'
     success_url = '/'
+
+
+class ArticleDetailView(DeleteView):
+    model = Article
+    template_name = 'article.html'
+    context_object_name = 'article'
