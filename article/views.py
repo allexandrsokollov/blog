@@ -44,11 +44,12 @@ class UpdateArticle(UpdateView):
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
 
-        print(request.user.username)
-        print(self.fields)
+        print(request.user)
+        print(self.object.author)
+        print(request.user == self.object.author)
 
-        # if self.model.author.username != request.user.username:
-        #     return HttpResponseForbidden()
+        if request.user != self.object.author:
+            return HttpResponseForbidden()
 
         return super().post(request, *args, **kwargs)
 
