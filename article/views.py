@@ -1,12 +1,19 @@
+from django.core.paginator import Paginator
+from django.http import HttpResponseForbidden
 from django.shortcuts import render
-from django.views.generic import DetailView, UpdateView, DeleteView
+from django.views.generic import UpdateView, DeleteView
 
 from article.models import *
 
 
 def show_articles(request):
     articles = Article.objects.all()
-    return render(request, 'index.html', {'articles': articles})
+
+    paginator = Paginator(articles, 2)  # Show 25 contacts per page.
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'index.html', {'articles': articles, 'page_obj': page_obj})
 
 
 def new_article(request):
@@ -33,6 +40,17 @@ class UpdateArticle(UpdateView):
     template_name = 'edit_article.html'
     context_object_name = 'article'
     fields = ['title', 'text']
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+
+        print(request.user.username)
+        print(self.fields)
+
+        # if self.model.author.username != request.user.username:
+        #     return HttpResponseForbidden()
+
+        return super().post(request, *args, **kwargs)
 
 
 class DeleteArticle(DeleteView):

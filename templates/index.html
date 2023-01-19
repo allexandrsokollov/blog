@@ -11,7 +11,7 @@
     {% endif %}
 </div>
     <div class="container">
-    {% for article in articles%}
+    {% for article in page_obj %}
         <a href="{%url 'article' article.id %}">{{ article.title }}</a>
         <h3>{{ article.text }}</h3>
         <p>{{ article.author }} {{ article.date_time }}</p>
@@ -20,6 +20,10 @@
             <a href="{% url 'delete_article' article.id %}">Delete </a>
             <br/>
         {% endif %}
+    {% endfor %}
+
+    {% for pageNumber in page_obj.paginator.page_range %}
+        <a href="?page={{ pageNumber }}">{{ pageNumber }}</a>
     {% endfor %}
     </div>
 
